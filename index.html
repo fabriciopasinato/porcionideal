@@ -1,0 +1,402 @@
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <title>Calculadora ración Barkly</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      background: #a27aa5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .calculator-container {
+      background: #fdfbf9;
+      border-radius: 25px;
+      margin: 10px;
+      padding: 10px 30px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+      max-width: 500px;
+      width: 100%;
+      height: auto;
+      text-align: center;
+    }
+
+    .brand {
+      max-width: 180px;
+      margin: 0 auto;
+      padding: 0;
+    }
+
+    .header {
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    .header h1 {
+      color: #2c3e50;
+      font-size: 1.95rem;
+      background: #a27aa5;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header p {
+      color: #7f8c8d;
+      font-size: 1rem;
+    }
+
+    .input-group {
+      margin-bottom: 25px;
+      text-align: left;
+    }
+
+    .input-group label {
+      display: block;
+      font-weight: bold;
+      color: #2c3e50;
+      margin-bottom: 8px;
+      font-size: 1.1rem;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 15px 20px;
+      border: 2px solid #e1e8ed;
+      border-radius: 12px;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      background: #f8f9fa;
+    }
+
+    .input-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+      background: white;
+    }
+
+    .activity-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 30px;
+    }
+
+    .activity-btn1 {
+      padding: 20px;
+      border: 2px;
+      border-radius: 12px;
+      background: rgba(190, 209, 189, 0.5);
+      color: #2c3e50;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins';
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .activity-btn2 {
+      padding: 20px;
+      border: 2px;
+      border-radius: 12px;
+      background: rgba(230, 180, 180, 0.5);
+      color: #2c3e50;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .activity-btn3 {
+      padding: 20px;
+      border: 2px;
+      border-radius: 12px;
+      background: rgba(121, 152, 168, 0.5);
+      color: #2c3e50;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 19px;
+    }
+
+    .activity-btn1:hover,
+    .activity-btn2:hover,
+    .activity-btn3:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(214, 214, 214, 0.5);
+    }
+
+    .activity-btn1.selected {
+      color: white;
+      background: #bed1bd;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(214, 214, 214, 0.8);
+    }
+
+    .activity-btn2.selected {
+      color: white;
+      background: #e6b4b4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(214, 214, 214, 0.8);
+    }
+
+    .activity-btn3.selected {
+      color: white;
+      background: #7998a8;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(214, 214, 214, 0.8);
+    }
+
+    .activity-icon {
+      padding: auto;
+    }
+
+    .calculate-btn {
+      width: 100%;
+      padding: 18px;
+      background: #a27aa5;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-bottom: 20px;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 30px rgba(214, 214, 214, 0.5);
+    }
+
+    .calculate-btn:disabled {
+      background: #bdc3c7;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .result {
+      display: none;
+      background: #d383b7;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 15px;
+      margin-bottom: 5px;
+      animation: slideIn 0.5s ease;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    .result-number {
+      font-size: 3rem;
+      font-weight: bold;
+      margin: 0;
+    }
+
+    .result-label {
+      font-size: 1.1rem;
+      opacity: 0.9;
+    }
+
+    .error-message {
+      color: #e74c3c;
+      font-size: 0.9rem;
+      margin-top: 5px;
+      display: none;
+    }
+
+    @keyframes slideIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width:480px) {
+      .calculator-container {
+        padding: 25px;
+        margin: 10px;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+      }
+
+      .activity-buttons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      .result-number {
+        font-size: 2.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="calculator-container">
+    <img class="brand" src="./recursos/brand_barkly.png" alt="sticker marca">
+    <div class="header">
+      <h1>Calculadora de ración</h1>
+      <p>Calcula la cantidad diaria de alimento</p>
+    </div>
+
+    <div class="input-group">
+      <label for="peso">Peso del perro (kg)</label>
+      <input type="number" id="peso" placeholder="Ingresa el peso en kg" step="0.1" min="1" max="50">
+      <div class="error-message" id="peso-error">Por favor ingresa un peso válido</div>
+    </div>
+
+    <div class="input-group">
+     <label>Nivel de Actividad</label>
+     <div class="activity-buttons">
+       <button class="activity-btn1" data-activity="baja">
+        <div class="activity-icon">
+          <img src="./recursos/baja_blanco.png" alt="Actividad baja" width="50">
+         </div>
+         <div>Baja</div>
+    </button>
+    <button class="activity-btn2" data-activity="moderada">
+      <div class="activity-icon">
+        <img src="./recursos/moderada_blanco.png" alt="Actividad moderada" width="40">
+      </div>
+      <div>Moderada</div>
+    </button>
+    <button class="activity-btn3" data-activity="alta">
+       <div class="activity-icon">
+          <img src="./recursos/alta_blanco.png" alt="Actividad alta" width="65">
+        </div>
+        <div>Alta</div>
+      </button>
+     </div>
+    </div>
+
+    <button class="calculate-btn" type="button" onclick="calcular()">Calcular Cantidad Diaria</button>
+
+    <div class="result" id="resultado">
+      <div class="result-number" id="gramos-resultado">0</div>
+      <div class="result-label">gramos por día</div>
+    </div>
+  </div>
+
+  <script>
+    let actividadSeleccionada = 'moderada';
+    const pesoInput = document.getElementById('peso');
+
+    // Selección de actividad
+
+    const botonesActividad = document.querySelectorAll('.activity-btn1, .activity-btn2, .activity-btn3');
+
+    botonesActividad.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Quitar la clase selected de todos
+        botonesActividad.forEach(b => b.classList.remove('selected'));
+        // Agregar la clase selected al clickeado
+        btn.classList.add('selected');
+        // Guardar la actividad seleccionada
+        actividadSeleccionada = btn.dataset.activity;
+      });
+    });
+
+    // Enter en desktop
+    pesoInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') calcular();
+    });
+
+    // Función calcular
+    function calcular() {
+      const pesoValor = pesoInput.value.replace(',', '.');
+      const peso = parseFloat(pesoValor);
+      const pesoError = document.getElementById('peso-error');
+      const resultadoDiv = document.getElementById('resultado');
+
+      if (!peso || peso <= 0 || peso > 50) {
+        pesoError.style.display = 'block';
+        resultadoDiv.classList.remove('show');
+        return;
+      }
+
+      pesoError.style.display = 'none';
+
+      const tablaAlimento = [
+        { peso: 5, baja: 200, moderada: 230, alta: 270 },
+        { peso: 10, baja: 310, moderada: 380, alta: 450 },
+        { peso: 15, baja: 415, moderada: 490, alta: 610 },
+        { peso: 20, baja: 520, moderada: 610, alta: 760 },
+        { peso: 25, baja: 610, moderada: 720, alta: 890 },
+        { peso: 30, baja: 700, moderada: 830, alta: 1020 }
+      ];
+
+      let gramosDiarios;
+      const exacto = tablaAlimento.find(f => f.peso === peso);
+
+      if (exacto) gramosDiarios = exacto[actividadSeleccionada];
+      else {
+        let menor = null, mayor = null;
+        tablaAlimento.forEach(f => {
+          if (f.peso < peso) menor = f;
+          else if (f.peso > peso && !mayor) mayor = f;
+        });
+        if (menor && mayor) {
+          const factor = (peso - menor.peso) / (mayor.peso - menor.peso);
+          gramosDiarios = menor[actividadSeleccionada] + (mayor[actividadSeleccionada] - menor[actividadSeleccionada]) * factor;
+        } else if (menor) {
+          const ult = tablaAlimento.length - 1;
+          const pen = tablaAlimento.length - 2;
+          const tasa = (tablaAlimento[ult][actividadSeleccionada] - tablaAlimento[pen][actividadSeleccionada]) / (tablaAlimento[ult].peso - tablaAlimento[pen].peso);
+          gramosDiarios = menor[actividadSeleccionada] + tasa * (peso - menor.peso);
+        } else if (mayor) {
+          const tasa = (tablaAlimento[1][actividadSeleccionada] - tablaAlimento[0][actividadSeleccionada]) / (tablaAlimento[1].peso - tablaAlimento[0].peso);
+          gramosDiarios = mayor[actividadSeleccionada] - tasa * (mayor.peso - peso);
+        } else {
+          const mult = actividadSeleccionada === 'baja' ? 40 : actividadSeleccionada === 'moderada' ? 48 : 56;
+          gramosDiarios = peso * mult;
+        }
+      }
+
+      document.getElementById('gramos-resultado').textContent = Math.round(gramosDiarios);
+      resultadoDiv.classList.add('show');
+    }
+  </script>
+</body>
+
+</html>
+
