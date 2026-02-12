@@ -15,7 +15,7 @@
     }
 
     body {
-      background: #a27aa5;
+      background: #27512f;
       min-height: 100vh;
       display: flex;
       align-items: center;
@@ -24,7 +24,7 @@
     }
 
     .calculator-container {
-      background: #fdfbf9;
+      background: #f8f2e6;
       border-radius: 25px;
       margin: 10px;
       padding: 30px;
@@ -34,15 +34,27 @@
       height: auto;
     }
 
+    .logo-container {
+      text-align: center;
+      margin-bottom: 25px;
+    }
+
+    .logo {
+      max-width: 200px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+    }
+
     .header {
       margin-bottom: 30px;
       text-align: center;
     }
 
     .header h1 {
-      color: #2c3e50;
+      color: #27512f;
       font-size: 1.95rem;
-      background: #a27aa5;
+      background: linear-gradient(135deg, #27512f, #94c64d);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -50,8 +62,9 @@
     }
 
     .header p {
-      color: #7f8c8d;
+      color: #27512f;
       font-size: 1rem;
+      opacity: 0.8;
     }
 
     .input-group {
@@ -61,7 +74,7 @@
     .input-group label {
       display: block;
       font-weight: 600;
-      color: #2c3e50;
+      color: #27512f;
       margin-bottom: 12px;
       font-size: 1.1rem;
     }
@@ -74,17 +87,17 @@
     .input-group select {
       width: 100%;
       padding: 15px 20px;
-      border: 2px solid #e1e8ed;
+      border: 2px solid #94c64d;
       border-radius: 12px;
       font-size: 1.05rem;
       transition: all 0.3s ease;
-      background: #f8f9fa;
+      background: white;
       cursor: pointer;
       appearance: none;
       -webkit-appearance: none;
       -moz-appearance: none;
       font-family: 'Poppins', sans-serif;
-      color: #2c3e50;
+      color: #27512f;
     }
 
     .select-wrapper::after {
@@ -94,38 +107,38 @@
       top: 50%;
       transform: translateY(-50%);
       pointer-events: none;
-      color: #a27aa5;
+      color: #94c64d;
       font-size: 0.9rem;
     }
 
     .input-group select:focus {
       outline: none;
-      border-color: #a27aa5;
-      box-shadow: 0 0 0 3px rgba(162, 122, 165, 0.15);
+      border-color: #ffd100;
+      box-shadow: 0 0 0 3px rgba(255, 209, 0, 0.2);
       background: white;
     }
 
     .input-group input {
       width: 100%;
       padding: 15px 20px;
-      border: 2px solid #e1e8ed;
+      border: 2px solid #94c64d;
       border-radius: 12px;
       font-size: 1.1rem;
       transition: all 0.3s ease;
-      background: #f8f9fa;
+      background: white;
     }
 
     .input-group input:focus {
       outline: none;
-      border-color: #a27aa5;
-      box-shadow: 0 0 0 3px rgba(162, 122, 165, 0.15);
+      border-color: #ffd100;
+      box-shadow: 0 0 0 3px rgba(255, 209, 0, 0.2);
       background: white;
     }
 
     .calculate-btn {
       width: 100%;
       padding: 18px;
-      background: #a27aa5;
+      background: linear-gradient(135deg, #94c64d, #27512f);
       color: white;
       border: none;
       border-radius: 12px;
@@ -138,7 +151,7 @@
 
     .calculate-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(162, 122, 165, 0.4);
+      box-shadow: 0 12px 30px rgba(148, 198, 77, 0.4);
     }
 
     .calculate-btn:disabled {
@@ -150,7 +163,7 @@
 
     .result {
       display: none;
-      background: #d383b7;
+      background: linear-gradient(135deg, #ff8000, #ffd100);
       color: white;
       padding: 25px 20px;
       border-radius: 15px;
@@ -182,21 +195,21 @@
     }
 
     .nota-importante {
-      background: #fff3cd;
-      border-left: 4px solid #ffc107;
+      background: #fff9e6;
+      border-left: 4px solid #ffd100;
       padding: 15px;
       border-radius: 8px;
       margin-top: 20px;
     }
 
     .nota-importante strong {
-      color: #856404;
+      color: #27512f;
       display: block;
       margin-bottom: 8px;
     }
 
     .nota-importante p {
-      color: #856404;
+      color: #27512f;
       font-size: 0.9rem;
       line-height: 1.5;
       margin: 0;
@@ -244,6 +257,11 @@
 
 <body>
   <div class="calculator-container">
+    <!-- Logo de la empresa - Reemplaza "ruta-del-logo.png" con la ruta de tu logo -->
+    <div class="logo-container">
+      <img class="logo" src="ruta-del-logo.png" alt="Logo de la empresa">
+    </div>
+
     <div class="header">
       <h1>Calculadora de Ración</h1>
       <p>Calcula la cantidad diaria de alimento</p>
