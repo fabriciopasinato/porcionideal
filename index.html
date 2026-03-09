@@ -79,45 +79,6 @@
       font-size: 1.1rem;
     }
 
-    .select-wrapper {
-      position: relative;
-      width: 100%;
-    }
-
-    .input-group select {
-      width: 100%;
-      padding: 15px 20px;
-      border: 2px solid #94c64d;
-      border-radius: 12px;
-      font-size: 1.05rem;
-      transition: all 0.3s ease;
-      background: white;
-      cursor: pointer;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
-      font-family: 'Poppins', sans-serif;
-      color: #27512f;
-    }
-
-    .select-wrapper::after {
-      content: '▼';
-      position: absolute;
-      right: 20px;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
-      color: #94c64d;
-      font-size: 0.9rem;
-    }
-
-    .input-group select:focus {
-      outline: none;
-      border-color: #ffd100;
-      box-shadow: 0 0 0 3px rgba(255, 209, 0, 0.2);
-      background: white;
-    }
-
     .input-group input {
       width: 100%;
       padding: 15px 20px;
@@ -135,6 +96,75 @@
       background: white;
     }
 
+    /* Botones de actividad */
+    .activity-buttons {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .activity-btn {
+      padding: 18px 10px;
+      border: 2px solid transparent;
+      border-radius: 12px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+      color: #27512f;
+    }
+
+    .activity-btn-baja {
+      background: rgba(148, 198, 77, 0.25);
+    }
+
+    .activity-btn-moderada {
+      background: rgba(255, 128, 0, 0.2);
+    }
+
+    .activity-btn-alta {
+      background: rgba(39, 81, 47, 0.15);
+    }
+
+    .activity-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+
+    .activity-btn-baja.selected {
+      background: #94c64d;
+      color: white;
+      border-color: #94c64d;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(148, 198, 77, 0.5);
+    }
+
+    .activity-btn-moderada.selected {
+      background: #ff8000;
+      color: white;
+      border-color: #ff8000;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(255, 128, 0, 0.5);
+    }
+
+    .activity-btn-alta.selected {
+      background: #27512f;
+      color: white;
+      border-color: #27512f;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(39, 81, 47, 0.5);
+    }
+
+    .activity-icon {
+      font-size: 2rem;
+      line-height: 1;
+    }
+
     .calculate-btn {
       width: 100%;
       padding: 18px;
@@ -147,11 +177,12 @@
       cursor: pointer;
       transition: all 0.3s ease;
       margin-bottom: 20px;
+      margin-top: 10px;
     }
 
     .calculate-btn:hover {
       transform: translateY(-3px);
-      box-shadow: 0 12px 30px rgba(148, 198, 77, 0.4);
+      box-shadow: 0 12px 30px rgba(255, 128, 0, 0.4);
     }
 
     .calculate-btn:disabled {
@@ -185,13 +216,6 @@
     .result-label {
       font-size: 1.1rem;
       opacity: 0.95;
-      margin-bottom: 10px;
-    }
-
-    .result-detail {
-      font-size: 0.95rem;
-      opacity: 0.85;
-      margin-top: 5px;
     }
 
     .nota-importante {
@@ -227,7 +251,6 @@
         opacity: 0;
         transform: translateY(20px);
       }
-
       to {
         opacity: 1;
         transform: translateY(0);
@@ -244,6 +267,11 @@
         font-size: 1.7rem;
       }
 
+      .activity-buttons {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
       .result-number {
         font-size: 2.5rem;
       }
@@ -257,7 +285,6 @@
 
 <body>
   <div class="calculator-container">
-    <!-- Logo de la empresa - Reemplaza "ruta-del-logo.png" con la ruta de tu logo -->
     <div class="logo-container">
       <img class="logo" src="LOGO-01 (1).png" alt="Logo de la empresa">
     </div>
@@ -268,30 +295,27 @@
     </div>
 
     <div class="input-group">
-      <label for="tipo-perro">Tipo de Perro</label>
-      <div class="select-wrapper">
-        <select id="tipo-perro">
-          <option value="">Selecciona el tipo</option>
-          <option value="cachorro">Cachorro</option>
-          <option value="adulto-grande">Adulto raza grande</option>
-          <option value="adulto-pequeno">Adulto raza pequeña</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="input-group">
-      <label for="edad-actividad">Edad / Actividad</label>
-      <div class="select-wrapper">
-        <select id="edad-actividad" disabled>
-          <option value="">Primero selecciona el tipo de perro</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="input-group">
       <label for="peso">Peso del perro (kg)</label>
       <input type="number" id="peso" placeholder="Ingresa el peso en kg" step="0.1" min="0.1" max="100">
       <div class="error-message" id="peso-error">Por favor ingresa un peso válido</div>
+    </div>
+
+    <div class="input-group">
+      <label>Nivel de Actividad</label>
+      <div class="activity-buttons">
+        <button class="activity-btn activity-btn-baja" data-activity="baja">
+          <div class="activity-icon">🐾</div>
+          <div>Baja</div>
+        </button>
+        <button class="activity-btn activity-btn-moderada" data-activity="moderada">
+          <div class="activity-icon">🐕</div>
+          <div>Moderada</div>
+        </button>
+        <button class="activity-btn activity-btn-alta" data-activity="alta">
+          <div class="activity-icon">🏃</div>
+          <div>Alta</div>
+        </button>
+      </div>
     </div>
 
     <button class="calculate-btn" type="button" onclick="calcular()">Calcular Cantidad Diaria</button>
@@ -300,7 +324,6 @@
       <div class="result-label">Cantidad diaria recomendada:</div>
       <div class="result-number" id="gramos-resultado">0</div>
       <div class="result-label">gramos por día</div>
-      <div class="result-detail" id="detalle-calculo"></div>
     </div>
 
     <div class="nota-importante">
@@ -310,71 +333,31 @@
   </div>
 
   <script>
-    const opcionesTabla = {
-      cachorro: [
-        { label: '2–4 meses', value: '2-4', porcentaje: 10 },
-        { label: '4–6 meses', value: '4-6', porcentaje: 8 },
-        { label: '6–8 meses', value: '6-8', porcentaje: 6 },
-        { label: '8–12 meses', value: '8-12', porcentaje: 4 }
-      ],
-      'adulto-grande': [
-        { label: 'Sedentario', value: 'sedentario', porcentaje: 2 },
-        { label: 'Normal', value: 'normal', porcentaje: 3 },
-        { label: 'Activo', value: 'activo', porcentaje: 3 }
-      ],
-      'adulto-pequeno': [
-        { label: 'Sedentario', value: 'sedentario', porcentaje: 3 },
-        { label: 'Normal', value: 'normal', porcentaje: 4 },
-        { label: 'Activo', value: 'activo', porcentaje: 5 }
-      ]
-    };
-
-    const tipoPerroSelect = document.getElementById('tipo-perro');
-    const edadActividadSelect = document.getElementById('edad-actividad');
+    let actividadSeleccionada = null;
     const pesoInput = document.getElementById('peso');
 
-    // Actualizar opciones de edad/actividad según tipo de perro
-    tipoPerroSelect.addEventListener('change', function () {
-      const tipo = this.value;
-      edadActividadSelect.innerHTML = '';
+    const botonesActividad = document.querySelectorAll('.activity-btn');
 
-      if (!tipo) {
-        edadActividadSelect.disabled = true;
-        edadActividadSelect.innerHTML = '<option value="">Primero selecciona el tipo de perro</option>';
-        return;
-      }
-
-      edadActividadSelect.disabled = false;
-      const opcionDefault = document.createElement('option');
-      opcionDefault.value = '';
-      opcionDefault.textContent = 'Selecciona una opción';
-      edadActividadSelect.appendChild(opcionDefault);
-
-      opcionesTabla[tipo].forEach(opcion => {
-        const opt = document.createElement('option');
-        opt.value = opcion.value;
-        opt.textContent = opcion.label;
-        opt.dataset.porcentaje = opcion.porcentaje;
-        edadActividadSelect.appendChild(opt);
+    botonesActividad.forEach(btn => {
+      btn.addEventListener('click', () => {
+        botonesActividad.forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        actividadSeleccionada = btn.dataset.activity;
       });
     });
 
-    // Enter para calcular
     pesoInput.addEventListener('keydown', function (e) {
       if (e.key === 'Enter') calcular();
     });
 
     function calcular() {
-      const tipo = tipoPerroSelect.value;
-      const edadActividad = edadActividadSelect.value;
       const pesoValor = pesoInput.value.replace(',', '.');
       const peso = parseFloat(pesoValor);
       const pesoError = document.getElementById('peso-error');
       const resultadoDiv = document.getElementById('resultado');
 
-      // Validaciones
-      if (!tipo || !edadActividad) {
-        alert('Por favor selecciona el tipo de perro y la edad/actividad');
+      if (!actividadSeleccionada) {
+        alert('Por favor seleccioná el nivel de actividad');
         resultadoDiv.classList.remove('show');
         return;
       }
@@ -387,16 +370,45 @@
 
       pesoError.style.display = 'none';
 
-      // Obtener porcentaje
-      const opcionSeleccionada = edadActividadSelect.options[edadActividadSelect.selectedIndex];
-      const porcentaje = parseFloat(opcionSeleccionada.dataset.porcentaje);
+      const tablaAlimento = [
+        { peso: 5,  baja: 200, moderada: 230, alta: 270 },
+        { peso: 10, baja: 310, moderada: 380, alta: 450 },
+        { peso: 15, baja: 415, moderada: 490, alta: 610 },
+        { peso: 20, baja: 520, moderada: 610, alta: 760 },
+        { peso: 25, baja: 610, moderada: 720, alta: 890 },
+        { peso: 30, baja: 700, moderada: 830, alta: 1020 }
+      ];
 
-      // Calcular gramos
-      const gramosDiarios = (peso * 1000 * porcentaje) / 100;
+      let gramosDiarios;
+      const exacto = tablaAlimento.find(f => f.peso === peso);
 
-      // Mostrar resultado
+      if (exacto) {
+        gramosDiarios = exacto[actividadSeleccionada];
+      } else {
+        let menor = null, mayor = null;
+        tablaAlimento.forEach(f => {
+          if (f.peso < peso) menor = f;
+          else if (f.peso > peso && !mayor) mayor = f;
+        });
+
+        if (menor && mayor) {
+          const factor = (peso - menor.peso) / (mayor.peso - menor.peso);
+          gramosDiarios = menor[actividadSeleccionada] + (mayor[actividadSeleccionada] - menor[actividadSeleccionada]) * factor;
+        } else if (menor) {
+          const ult = tablaAlimento.length - 1;
+          const pen = tablaAlimento.length - 2;
+          const tasa = (tablaAlimento[ult][actividadSeleccionada] - tablaAlimento[pen][actividadSeleccionada]) / (tablaAlimento[ult].peso - tablaAlimento[pen].peso);
+          gramosDiarios = menor[actividadSeleccionada] + tasa * (peso - menor.peso);
+        } else if (mayor) {
+          const tasa = (tablaAlimento[1][actividadSeleccionada] - tablaAlimento[0][actividadSeleccionada]) / (tablaAlimento[1].peso - tablaAlimento[0].peso);
+          gramosDiarios = mayor[actividadSeleccionada] - tasa * (mayor.peso - peso);
+        } else {
+          const mult = actividadSeleccionada === 'baja' ? 40 : actividadSeleccionada === 'moderada' ? 48 : 56;
+          gramosDiarios = peso * mult;
+        }
+      }
+
       document.getElementById('gramos-resultado').textContent = Math.round(gramosDiarios);
-      document.getElementById('detalle-calculo').textContent = `(${porcentaje}% de ${peso} kg)`;
       resultadoDiv.classList.add('show');
     }
   </script>
